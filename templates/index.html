@@ -1,0 +1,20 @@
+<html>
+<head>
+  <title>NN</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='bulma.min.css') }}">
+  <style>
+    pre{
+      padding: 0 !important
+    }
+    .container{
+      padding:1%
+    }
+  </style>
+</head>
+<body>
+  {% include 'menu.html' %}
+  {% block konten %}
+        konten
+  {% endblock %}
+</body>
+</html>

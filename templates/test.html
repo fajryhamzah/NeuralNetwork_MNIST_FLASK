@@ -1,0 +1,50 @@
+{% extends "index.html" %}
+{% block konten %}
+<style>
+.subtitle{
+  margin-top: 10px !important;
+  margin-bottom: 0px !important;
+}
+</style>
+   <div class="container">
+     <h2 class="subtitle">Gambar Asli : </h2>
+     <center>
+       <img src="{{ url_for('static', filename='') }}ori/{{info.clean}}" />
+       <p>Ukuran {{info.guess.ori_size}}</p>
+     </center>
+     <h2 class="subtitle">Gambar yang telah disesuaikan dengan format :</h2>
+     <center>
+       <img src="{{ url_for('static', filename='') }}clean/{{info.clean}}" />
+       <p>Ukuran {{info.guess.clean_size}}</p>
+     </center>
+     <h1 class="title">Data Prepare</h1>
+     <h3 class="subtitle">Matrix gambar : </h3>
+     <pre>{{info.guess.img_ori}}</pre>
+     <h3 class="subtitle">Matrix gambar diformat menjadi matrix 1 dimensi</h3>
+     <pre>{{info.guess.img_reshape}}</pre>
+
+     <h3 class="subtitle">Matrix gambar dikurangi dengan 255 untuk mereverse bahwa 0 = hitam dan 1 = putih, sedangkan di dataset berlaku kebalikannya</h3>
+     <pre>{{info.guess.img_range}}</pre>
+
+     <h3 class="subtitle">Matrix gambar dibagi dengan 255 agar selalu pada range 0-1 (0 : putih & 1 : hitam) dan dikali dengan 0.99 supaya nilai tertinggi nya 0.99 dan ditambah 0.01 agar nilai terendah nya tidak 0</h3>
+     <pre>{{info.guess.pixel}}</pre>
+     <h2>Neural Network Process</h2>
+     <h3 class="subtitle">Matrix gambar diubah menjadi 2 dimensi untuk dilakukan operasi dot product</h3>
+     <pre style="white-space:normal !important">{{info.guess.test['flat']}}</pre>
+     <h3 class="subtitle">Matrix weight dari input layer ke hidden layer (detail ada di file wih)</h3>
+     <pre>{{info.guess.test['wih']}}</pre>
+     <h3 class="subtitle">Matrix weight dari hidden layer ke output layer (detail ada di file who)</h3>
+     <pre>{{info.guess.test['who']}}</pre>
+     <h3 class="subtitle">Matrix weight dari input layer ke hidden layer dot product matrix gambar</h3>
+     <pre style="white-space:normal !important">{{info.guess.test['dotih']}}</pre>
+     <h3 class="subtitle">Hasil dot product tiap node dimasukan ke fungsi aktivasi (sigmoid)</h3>
+     <pre style="white-space:normal !important">{{info.guess.test['hidden_out']}}</pre>
+     <h3 class="subtitle">Matrix di hidden layer dot product weight dari hidden layer ke output layer dotho</h3>
+     <pre style="white-space:normal !important">{{info.guess.test['dotho']}}</pre>
+     <h3 class="subtitle">Hasil dot product tiap node dimasukan ke fungsi aktivasi (sigmoid)</h3>
+     <pre>{{info.guess.test['out']}}</pre>
+     <h3 class="subtitle">Hasil setelah aktivasi diambil index yang memiliki nilai yang paling besar yaitu:</h3>
+     <h2 class="subtitle">Tebakan :{{info.guess.guess}}</h2>
+     <h2 class="subtitle">Percentase keyakinan : {{ '%.2f' % info.guess.percentage}} %</h2>
+   </div>
+{%endblock%}

@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+{% block konten %}
+   <div class="container">
+     <p>Akurasi : {{info.akurasi}}%</p>
+     <p>Nodes di layer 1 (Input) : {{info.l1}}</p>
+     <p>Nodes di layer 2 (Hidden) : {{info.l2}}</p>
+     <p>Nodes di layer 3 (Output) : {{info.l3}}</p>
+     <p>
+       {% with messages = get_flashed_messages() %}
+      	  {% if messages %}
+      	    {% for message in messages %}
+      			{{message}}
+      		{% endfor %}
+      	  {% endif %}
+      	{% endwith %}
+     </p>
+
+     Coba dengan upload gambar:
+     <form method="post" action="/test" enctype="multipart/form-data">
+          <input type="file" name="file">
+        <button type="submit">Upload</button>
+    </form>
+    atau dengan gambar yang sudah pernah dicoba:
+        <table class="table is-bordered is-striped">
+          <thead>
+            <tr>
+              <th>Gambar</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in info.file %}
+              <tr>
+                <td><img src="{{ url_for('static', filename='clean')}}/{{i}}" width="28" height="28"/></td>
+                <td><a class="button is-link" href="/test?img={{i}}">Test</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+
+
+   </div>
+{%endblock%}

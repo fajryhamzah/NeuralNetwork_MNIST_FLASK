@@ -1,0 +1,40 @@
+{% extends "index.html" %}
+{% block konten %}
+   <div class="container">
+     <h3 class="title">Akurasi : {{info.akurasi}}%</h3>
+     <h3 class="title">Data Uji :
+       {% if info.exist %}
+          <span class="tag is-success">Ada</span>
+       {% else %}
+          <span class="tag is-danger">Tidak ditemukan</span>
+       {%endif%}
+     </h3>
+     {% if info.exist %}
+     <p>
+       Untuk melatih semua data uji bisa menjalankan script training.py di console
+     </p>
+     <p>
+       untuk mencoba melatih 1 baris (perlangkah) <a class="button is-link" href="/trainingcoba">klik</a>
+     </p>
+     {%endif%}
+     <h3 class="title">Langkah-langkah cara kerja training:</h3>
+     <div class="content">
+      <ol type="1">
+        <li>Membuka file dataset mnist_train.csv (http://pjreddie.com/media/files/mnist_train.csv)</li>
+        <li>Data akan dibaca perbaris sebelum dimasukan ke model</li>
+        <li>data perbaris terdiri dari 785 kolom dimana kolom pertama adalah label/contekan nya sedangkan sisanya adalah nilai grayscale dari tiap pixel</li>
+        <li>label dan data nilai gambar dipecah menjadi dua buah matrix berbeda</li>
+        <li>Data nilai gambar akan dibagi dengan 255 agar nilai berada di range 0-1 supaya angka tidak terlalu besar karena nantinnya setelah di masukan ke fungsi aktivasi nilai tidak akan mungkin keluar dari range 0-1</li>
+        <li>Kemudian setiap nilai dikalikan dengan 0.99 agar nilai maximal nya bernilai 0.99 dan juga untuk menghindari hasil perkalian tetap</li>
+        <li>Kemudian setiap nilai akan ditambah dengan 0.01 sehingga nilai terendah nya tidak 0</li>
+        <li>dilakukan proses feed forward, matrix gambar di kalikan dengan matrix weight dari input layer ke hidden layer (wih)</li>
+        <li>hasil perkalian kemudian diaktivasi menggunakan fungsi sigmoid</li>
+        <li>matrix hasil dari sigmoid kemudian di kalikan lagi dengan matrix weight dari hidden layer ke output layer (who)</li>
+        <li>hasil perkalian kemudian diaktivasi menggunakan fungsi sigmoid</li>
+        <li>setelah ditemukan outputnya, kemudian dihitung nilai errornya dengan cara matrix label dikurangi dengan matrix output</li>
+        <li>kemudian dilakukan proses backpropagation, dengan cara mengalikan weight who dengan matrix error nya</li>
+        <li>kemudian hasilnya akan dikalikan lagi dengan matrix nilai inputnya dan selanjutnya digunakan sebuah fungsi minimum(gradient descent) untuk melakukan update dari weight nya (proses belajar neural network dengan mengupdate nilai weight nya sehingga memperkecil nilai error)</li>
+      </ol>
+    </div>
+   </div>
+{%endblock%}

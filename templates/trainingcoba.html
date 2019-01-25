@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+{% block konten %}
+<style>
+.subtitle{
+  margin-top: 10px !important;
+  margin-bottom: 0px !important;
+}
+</style>
+   <div class="container">
+     <h3 class="subtitle">Data asli: </h3>
+     <pre>{{info.ori}}</pre>
+     <h3 class="subtitle">Label/contekan</h3>
+     <pre>{{info.label}}</pre>
+     <h3 class="subtitle">Data training</h3>
+     <pre>{{info.real}}</pre>
+     <h3 class="subtitle">Data training / 255</h3>
+     <pre>{{info.bagi}}</pre>
+     <h3 class="subtitle">Data training * 0.99</h3>
+     <pre>{{info.kali}}</pre>
+     <h3 class="subtitle">Data training + 0.01</h3>
+     <pre>{{info.tambah}}</pre>
+     <h3 class="subtitle">Label di ubah ke format matrix</h3>
+     <pre>{{info.matrix_label}}</pre>
+     <h3 class="subtitle">Ubah Data training ke matrix 2 dimensi</h3>
+     <pre style="white-space:normal !important">{{info.train.inputs}}</pre>
+     <h3 class="subtitle">Ubah label ke matrix 2 dimensi</h3>
+     <pre style="white-space:normal !important">{{info.train.target}}</pre>
+     <h2 class="title">Proses Feed Forward</h2>
+     <h3 class="subtitle">Matrix weight dari input layer ke hidden layer(wih)</h3>
+     <pre>{{info.train.wih}}</pre>
+     <h3 class="subtitle">perkalian(dot product) matrix input dengan matrix wih</h3>
+     <pre style="white-space:normal !important">{{info.train.dotih}}</pre>
+     <h3 class="subtitle">Hasil aktivasi(sigmoid)</h3>
+     <pre style="white-space:normal !important">{{info.train.input_out}}</pre>
+     <h3 class="subtitle">Matrix weight dari hidden layer ke output layer (who)</h3>
+     <pre>{{info.train.who}}</pre>
+     <h3 class="subtitle">perkalian hasil aktivasi sebelumnya dengan who</h3>
+     <pre>{{info.train.dotho}}</pre>
+     <h3 class="subtitle">Hasil aktivasi(sigmoid)</h3>
+     <pre>{{info.train.out}}</pre>
+     <h2 class="title">Proses Back Propagation</h2>
+     <h3 class="subtitle">Error (target-output)</h3>
+     <pre>{{info.train.error}}</pre>
+     <h3 class="subtitle">Hasil gradient descent untuk mengupdate weight who (who = who+gradient)</h3>
+     <pre>{{info.train.gradient}}</pre>
+     <h3 class="subtitle">Hasil gradient descent untuk mengupdate weight wih (wih = wih+gradient)</h3>
+     <pre>{{info.train.gradient1}}</pre>
+   </div>
+{%endblock%}
